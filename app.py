@@ -133,6 +133,12 @@ st.markdown(
     "and **6,800+ transactions** across 8 subject domains on EduPro."
 )
 
+with st.expander("▶️ Project Feedback & Walkthrough Video (Author: Navin D)", expanded=False):
+    if os.path.exists("project_walkthrough.mp4"):
+        st.video("project_walkthrough.mp4")
+    else:
+        st.info("Video walkthrough available on GitHub repository.")
+
 # --- Navigation Tabs ---
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "📊 Overview & KPIs", 
