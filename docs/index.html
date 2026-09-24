@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learner Demographics and Course Enrollment Behavior Analysis on EduPro</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #2c3e50;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.8em;
+            border-bottom: 1px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+        h3 {
+            font-size: 1.4em;
+        }
+        .header-info {
+            text-align: center;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            color: #555;
+        }
+        .header-info p {
+            margin: 5px 0;
+        }
+        .abstract {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        .abstract h2 {
+            margin-top: 0;
+            border: none;
+            font-style: normal;
+        }
+        .toc {
+            background-color: #fdfdfd;
+            border: 1px solid #eee;
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 5px;
+        }
+        .toc h2 {
+            margin-top: 0;
+            border: none;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc ul ul {
+            padding-left: 20px;
+        }
+        .toc li {
+            margin-bottom: 8px;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #2980b9;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        tr:nth-child(even) {
+            background-color: #fbfbfb;
+        }
+        .figure-placeholder {
+            background-color: #f1f2f6;
+            border: 2px dashed #ced6e0;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 20px 0;
+            color: #747d8c;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            border-radius: 5px;
+        }
+        .caption {
+            text-align: center;
+            font-style: italic;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+        .flowchart {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .flow-box {
+            background-color: #fff;
+            border: 2px solid #3498db;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            min-width: 120px;
+            margin: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .flow-arrow {
+            font-size: 24px;
+            color: #7f8c8d;
+        }
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 20px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        .footer a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        a {
+            color: #2980b9;
+        }
+        @media print {
+            body {
+                background-color: #fff;
+                margin: 0;
+                padding: 0;
+                max-width: 100%;
+            }
+            .toc {
+                border: none;
+                background: none;
+            }
+            .abstract {
+                background-color: transparent;
+                border-left: 2px solid #333;
+            }
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Learner Demographics and Course Enrollment Behavior Analysis on EduPro</h1>
+        <div class="header-info">
+            <p><strong>Author:</strong> Navin D</p>
+            <p><strong>Date:</strong> September 2026</p>
+            <p><strong>Institution:</strong> Unified Mentor Internship Program</p>
+        </div>
+    </header>
+
+    <div class="abstract">
+        <h2>Abstract</h2>
+        <p>This study presents a comprehensive analysis of learner demographics and course enrollment behaviors on EduPro, an emerging online learning platform. Utilizing a dataset comprising 3,000 registered learners, 50 distinct courses, and 6,839 enrollment transactions spanning from January 2023 to December 2024, this research aims to uncover patterns that drive educational engagement. Through exploratory data analysis and descriptive statistics, we examine age distributions, gender dynamics, and category preferences. Key findings indicate a balanced gender distribution and a strong preference for Technology and Business courses, particularly among the 18-25 age cohort. Furthermore, beginner-level courses dominate overall enrollments. The insights derived from this study offer actionable recommendations for targeted marketing, course curriculum expansion, and personalized learning experiences, highlighting the indispensable role of data-driven decision-making in enhancing EdTech platform efficacy.</p>
+    </div>
+
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#sec-1">1. Introduction</a></li>
+            <li><a href="#sec-2">2. Problem Statement</a></li>
+            <li><a href="#sec-3">3. Literature Review</a></li>
+            <li><a href="#sec-4">4. Dataset Description</a></li>
+            <li><a href="#sec-5">5. Methodology</a></li>
+            <li><a href="#sec-6">6. Exploratory Data Analysis & Findings</a>
+                <ul>
+                    <li><a href="#sec-6-1">6.1 Learner Demographics</a></li>
+                    <li><a href="#sec-6-2">6.2 Enrollment Patterns</a></li>
+                    <li><a href="#sec-6-3">6.3 Demographics × Course Preferences</a></li>
+                    <li><a href="#sec-6-4">6.4 Behavioral Insights</a></li>
+                </ul>
+            </li>
+            <li><a href="#sec-7">7. Key Performance Indicators</a></li>
+            <li><a href="#sec-8">8. Streamlit Dashboard</a></li>
+            <li><a href="#sec-9">9. Recommendations</a></li>
+            <li><a href="#sec-10">10. Limitations & Future Work</a></li>
+            <li><a href="#sec-11">11. Conclusion</a></li>
+            <li><a href="#sec-12">References</a></li>
+        </ul>
+    </div>
+
+    <section id="sec-1">
+        <h2>1. Introduction</h2>
+        <p>The proliferation of online learning platforms has fundamentally transformed the landscape of global education. Platforms such as Coursera, edX, and Udemy have democratized access to knowledge, enabling learners from diverse geographical and socioeconomic backgrounds to acquire new skills. However, as the digital education market saturates, platforms face the critical challenge of optimizing user engagement, improving course completion rates, and tailoring content to meet the heterogeneous needs of their user base.</p>
+        <p>Understanding learner demographics is paramount to addressing these challenges. Demographic factors—such as age, gender, geographic location, and prior educational background—significantly influence learning preferences, motivation, and interaction with course materials. By systematically analyzing these attributes, platforms can transition from a one-size-fits-all model to a more personalized, adaptive learning ecosystem.</p>
+        <p>The primary objectives of this study are:</p>
+        <ul>
+            <li>To profile the demographic composition of learners on the EduPro platform.</li>
+            <li>To identify the most popular and underutilized course categories.</li>
+            <li>To explore the intersection between demographic attributes (age and gender) and course enrollment behaviors.</li>
+            <li>To develop a suite of actionable recommendations for platform enhancement and content strategy.</li>
+        </ul>
+        <p>EduPro is a burgeoning EdTech platform offering a diverse catalog of courses ranging from Technology and Business to Arts and Humanities. With a growing user base, EduPro seeks to leverage its internal data to refine its strategic vision and operational efficiency.</p>
+    </section>
+
+    <section id="sec-2">
+        <h2>2. Problem Statement</h2>
+        <p>Despite accumulating substantial user registration and transaction data, EduPro currently lacks clear, actionable intelligence regarding its user base. The platform operates largely on intuition-driven decision-making rather than data-driven insights. Specifically, the administration is unable to answer fundamental questions about their clientele:</p>
+        <ul>
+            <li>What is the precise age distribution of active learners?</li>
+            <li>Are there discernible gender disparities in overall enrollment or within specific course categories?</li>
+            <li>Which course subjects and difficulty levels yield the highest enrollment volumes?</li>
+            <li>How does enrollment behavior vary across different demographic segments?</li>
+        </ul>
+        <p>Without these critical insights, EduPro risks misallocating resources on marketing campaigns that target the wrong demographics and developing courses that suffer from low enrollment. Therefore, there is a pressing need for a systematic, descriptive analytical study to bridge this knowledge gap.</p>
+    </section>
+
+    <section id="sec-3">
+        <h2>3. Literature Review</h2>
+        <p>Learner analytics, a sub-discipline of educational data mining, has garnered significant academic attention. Siemens (2013) defines learning analytics as the measurement, collection, analysis, and reporting of data about learners and their contexts. Early studies in this domain focused heavily on predictive modeling for student retention (Romero & Ventura, 2010).</p>
+        <p>However, recent literature emphasizes the foundational importance of descriptive demographics. Kizilcec et al. (2013) demonstrated that classifying learners based on demographic and behavioral trajectories is essential for understanding engagement in Massive Open Online Courses (MOOCs). Similarly, a study by Guo et al. (2014) highlighted how age and gender demographics influence video engagement metrics.</p>
+        <p>In the context of emerging EdTech platforms, robust descriptive analytics must precede complex predictive models. Identifying "who" the learners are and "what" they are doing is a prerequisite for accurately predicting "why" they might drop out or "what" they should learn next. This study contributes to this paradigm by providing a granular demographic and behavioral analysis of the EduPro user base.</p>
+    </section>
+
+    <section id="sec-4">
+        <h2>4. Dataset Description</h2>
+        <p>This study utilizes three interconnected datasets exported from the EduPro platform's backend database, covering the period from January 2023 to December 2024. The datasets are synthesized to protect user privacy while maintaining realistic statistical properties.</p>
+        
+        <h3>4.1 Users Dataset (3,000 Records)</h3>
+        <p>Contains demographic information for registered learners.</p>
+        <table>
+            <tr>
+                <th>Field Name</th>
+                <th>Description</th>
+                <th>Data Type / Range</th>
+            </tr>
+            <tr>
+                <td>User_ID</td>
+                <td>Unique identifier for each learner</td>
+                <td>Integer (1-3000)</td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td>Age of the learner</td>
+                <td>Integer (15-35)</td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>Self-identified gender</td>
+                <td>Categorical (Male, Female)</td>
+            </tr>
+            <tr>
+                <td>Registration_Date</td>
+                <td>Date the user joined the platform</td>
+                <td>Date (2023-01-01 to 2024-12-31)</td>
+            </tr>
+        </table>
+
+        <h3>4.2 Courses Dataset (50 Records)</h3>
+        <p>Catalogs the available educational offerings on EduPro.</p>
+        <table>
+            <tr>
+                <th>Field Name</th>
+                <th>Description</th>
+                <th>Data Type / Range</th>
+            </tr>
+            <tr>
+                <td>Course_ID</td>
+                <td>Unique identifier for each course</td>
+                <td>Integer (101-150)</td>
+            </tr>
+            <tr>
+                <td>Course_Name</td>
+                <td>Title of the course</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>Subject area</td>
+                <td>Categorical (8 Categories: Technology, Business, Arts, Science, Mathematics, Language, Health, Personal Development)</td>
+            </tr>
+            <tr>
+                <td>Level</td>
+                <td>Difficulty level</td>
+                <td>Categorical (Beginner, Intermediate, Advanced)</td>
+            </tr>
+            <tr>
+                <td>Price_Type</td>
+                <td>Whether the course is free or paid</td>
+                <td>Categorical (Free, Paid)</td>
+            </tr>
+        </table>
+
+        <h3>4.3 Transactions Dataset (6,839 Records)</h3>
+        <p>Logs all course enrollment events.</p>
+        <table>
+            <tr>
+                <th>Field Name</th>
+                <th>Description</th>
+                <th>Data Type / Range</th>
+            </tr>
+            <tr>
+                <td>Transaction_ID</td>
+                <td>Unique identifier for the enrollment event</td>
+                <td>String (UUID)</td>
+            </tr>
+            <tr>
+                <td>User_ID</td>
+                <td>Foreign key referencing Users</td>
+                <td>Integer</td>
+            </tr>
+            <tr>
+                <td>Course_ID</td>
+                <td>Foreign key referencing Courses</td>
+                <td>Integer</td>
+            </tr>
+            <tr>
+                <td>Enrollment_Date</td>
+                <td>Date the user enrolled</td>
+                <td>Date (2023-01-01 to 2024-12-31)</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="sec-5">
+        <h2>5. Methodology</h2>
+        <p>The analytical process was conducted utilizing Python, leveraging the Pandas library for data manipulation and Plotly for interactive visualization. The Streamlit framework was employed to construct a comprehensive dashboard.</p>
+        
+        <h3>5.1 Data Integration and Preprocessing</h3>
+        <p>The three datasets were integrated using standard relational joins (Users ↔ Transactions ↔ Courses) on `User_ID` and `Course_ID`. Missing values were minimal and handled via listwise deletion. To facilitate demographic analysis, the continuous `Age` variable was discretized into three logical age bands:</p>
+        <ul>
+            <li><strong>Under 18:</strong> Typically representing high school students.</li>
+            <li><strong>18-25:</strong> Representing college students and early-career professionals.</li>
+            <li><strong>26-35:</strong> Representing established professionals seeking upskilling.</li>
+        </ul>
+
+        <h3>5.2 Analytical Workflow</h3>
+        <div class="flowchart">
+            <div class="flow-box">Data Collection<br><small>(CSV Files)</small></div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-box">Data Cleaning &<br>Transformation<br><small>(Pandas)</small></div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-box">Exploratory Data<br>Analysis (EDA)</div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-box">Visualization<br><small>(Plotly)</small></div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-box">Dashboard<br>Deployment<br><small>(Streamlit)</small></div>
+        </div>
+
+        <p>The analytical approaches employed included frequency analysis for categorical variables, cross-tabulation for interaction effects (e.g., Age Group vs. Course Category), and temporal aggregation to observe enrollment trends over months.</p>
+    </section>
+
+    <section id="sec-6">
+        <h2>6. Exploratory Data Analysis & Findings</h2>
+        
+        <h3 id="sec-6-1">6.1 Learner Demographics</h3>
+        <p>The user base (N=3,000) exhibits a highly uniform distribution across the specified age range of 15 to 35 years. The gender distribution is nearly symmetrical, with males comprising approximately 51% (N=1,530) and females 49% (N=1,470) of the population.</p>
+        
+        <div class="figure-placeholder">
+            [ Figure 1: Donut Chart showing Gender Distribution (51% Male, 49% Female) ]
+        </div>
+        <div class="caption">Figure 1: Overall Gender Distribution of Registered Users.</div>
+
+        <p>When categorized into age bands, the <strong>18-25</strong> group emerges as the largest segment, marginally outpacing the 26-35 and Under 18 groups. This aligns with industry trends where university-aged individuals and recent graduates are the primary consumers of supplementary online education.</p>
+
+        <h3 id="sec-6-2">6.2 Enrollment Patterns</h3>
+        <p>Analysis of the 6,839 transaction records reveals distinct preferences in course subject matter. <strong>Technology</strong> and <strong>Business</strong> are unequivocally the most popular categories, accounting for over 40% of total enrollments combined. Conversely, traditional academic subjects such as Mathematics and Arts exhibit the lowest engagement rates.</p>
+
+        <div class="figure-placeholder">
+            [ Figure 2: Horizontal Bar Chart showing Total Enrollments by Course Category. Technology leading with ~1200 enrollments, Mathematics trailing with ~500. ]
+        </div>
+        <div class="caption">Figure 2: Total Course Enrollments by Category.</div>
+
+        <p>Regarding course difficulty, <strong>Beginner-level</strong> courses dominate the platform, constituting over 45% of all enrollments. This suggests that EduPro serves primarily as an introductory learning hub rather than a platform for deep, specialized expertise. Interestingly, Paid courses show a slightly higher enrollment volume than Free courses, implying a willingness among users to invest financially in their education when perceived value is present.</p>
+
+        <h3 id="sec-6-3">6.3 Demographics × Course Preferences</h3>
+        <p>Cross-tabulating age bands with course categories yields critical insights. The <strong>Under 18</strong> cohort demonstrates a strong preference for Technology (likely programming and game development) and Language courses. The <strong>18-25</strong> group shows robust activity across all categories but peaks in Business and Personal Development. The <strong>26-35</strong> group leans heavily towards Health and Technology upskilling.</p>
+
+        <div class="figure-placeholder">
+            [ Figure 3: Heatmap illustrating Age Groups (Y-axis) vs Course Categories (X-axis). Darker shades indicate higher enrollment density. ]
+        </div>
+        <div class="caption">Figure 3: Enrollment Density by Age Group and Course Category.</div>
+
+        <p>Gender differences across categories are surprisingly minimal, suggesting that EduPro has cultivated an inclusive environment. Both males and females engage with Technology and Business courses at nearly identical rates.</p>
+
+        <h3 id="sec-6-4">6.4 Behavioral Insights</h3>
+        <p>Not all registered users are equally active. Of the 3,000 registered users, 2,284 engaged in at least one enrollment transaction. The average active learner enrolls in approximately <strong>2.99 courses</strong>.</p>
+        <p>A Pareto-like distribution is observable in learner activity: the top 10% of active learners (the "power users") account for a disproportionately large share of total enrollments. Temporal analysis reveals a steady month-over-month enrollment rate across 2023 and 2024, devoid of extreme seasonal spikes, indicating stable platform growth and retention.</p>
+    </section>
+
+    <section id="sec-7">
+        <h2>7. Key Performance Indicators</h2>
+        <p>The following table summarizes the overarching Key Performance Indicators (KPIs) derived from the dataset, providing a snapshot of platform health.</p>
+        <table>
+            <tr>
+                <th>KPI</th>
+                <th>Value</th>
+                <th>Interpretation</th>
+            </tr>
+            <tr>
+                <td>Total Registered Users</td>
+                <td>3,000</td>
+                <td>Total platform acquisition size.</td>
+            </tr>
+            <tr>
+                <td>Total Enrollments</td>
+                <td>6,839</td>
+                <td>Total volume of educational transactions.</td>
+            </tr>
+            <tr>
+                <td>Active Learners</td>
+                <td>2,284</td>
+                <td>Users with ≥ 1 enrollment (~76% activation rate).</td>
+            </tr>
+            <tr>
+                <td>Average Courses per Learner</td>
+                <td>2.99</td>
+                <td>Indicates moderate re-engagement/retention.</td>
+            </tr>
+            <tr>
+                <td>Gender Ratio (M:F)</td>
+                <td>51 : 49</td>
+                <td>Highly balanced gender acquisition.</td>
+            </tr>
+            <tr>
+                <td>Most Popular Category</td>
+                <td>Technology</td>
+                <td>Primary driver of platform engagement.</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="sec-8">
+        <h2>8. Streamlit Dashboard</h2>
+        <p>To make these insights accessible and operational for EduPro administrators, an interactive web dashboard was developed using Streamlit. The dashboard features five distinct tabs, allowing users to intuitively explore the data.</p>
+        
+        <ul>
+            <li><strong>Overview:</strong> Displays high-level KPI cards and a combined timeline of user registrations and enrollments.</li>
+            <li><strong>Demographics:</strong> Features interactive Plotly pie charts and histograms detailing age and gender distributions.</li>
+            <li><strong>Courses:</strong> Provides bar charts breaking down popularity by Category, Level, and Price Type.</li>
+            <li><strong>Enrollments:</strong> Houses complex cross-tabulation visuals, including the Age-Category heatmap.</li>
+            <li><strong>Data Table:</strong> A filterable, paginated view of the raw merged dataset for granular inspection.</li>
+        </ul>
+
+        <div class="figure-placeholder">
+            [ Screenshot Placeholder: EduPro Analytics Dashboard UI showing Sidebar filters (Age Range, Gender, Category) and main KPI cards. ]
+        </div>
+        <div class="caption">Figure 4: Interface of the EduPro Streamlit Dashboard.</div>
+
+        <p>The dashboard supports real-time filtering, enabling administrators to isolate data by specific age ranges, genders, or course categories instantly.</p>
+    </section>
+
+    <section id="sec-9">
+        <h2>9. Recommendations</h2>
+        <p>Based on the empirical findings, the following strategic recommendations are proposed for EduPro:</p>
+        <ol>
+            <li><strong>Expand High-Yield Offerings:</strong> Given the dominance of Technology and Business, EduPro should allocate more resources to developing advanced courses in these areas to capitalize on existing demand.</li>
+            <li><strong>Targeted Content for Under 18s:</strong> Develop specific, age-appropriate pathways in Technology and Languages to nurture the youngest cohort, potentially incorporating gamification elements to boost retention.</li>
+            <li><strong>Level-Up Strategies:</strong> With 45% of enrollments in Beginner courses, there is an opportunity to design structured "learning tracks" that automatically funnel learners from Beginner to Intermediate courses, improving the average courses-per-learner metric.</li>
+            <li><strong>Reactivate Dormant Users:</strong> Implement targeted email marketing campaigns directed at the ~24% of registered users who have zero enrollments, perhaps offering a "first course free" incentive.</li>
+            <li><strong>Revitalize Underperforming Categories:</strong> For Mathematics and Arts, investigate the root causes of low enrollment. Consider bundling these courses with popular Technology or Business courses (e.g., "Math for Data Science" or "Digital Arts and Design").</li>
+        </ol>
+    </section>
+
+    <section id="sec-10">
+        <h2>10. Limitations & Future Work</h2>
+        <p>While this study provides foundational insights, several limitations must be acknowledged. First, the transaction data is limited strictly to enrollment events. It does not include course completion rates, quiz scores, or video watch times, which are crucial for assessing actual learning outcomes and engagement depth.</p>
+        <p>Second, the current analysis is purely descriptive. Future work should pivot towards predictive analytics. For instance, employing machine learning models (such as Logistic Regression or Random Forests) to predict user churn or recommend courses based on collaborative filtering. Additionally, integrating sentiment analysis from course reviews would provide qualitative context to the quantitative enrollment data.</p>
+    </section>
+
+    <section id="sec-11">
+        <h2>11. Conclusion</h2>
+        <p>This comprehensive analysis of EduPro’s user and transaction data underscores the vital importance of learner analytics in the EdTech sector. By transitioning from intuition to empirical evidence, EduPro is now equipped to understand its demographic composition—characterized by a balanced gender split and a prominent 18-25 age cohort—and its behavioral trends, dominated by Beginner-level Technology and Business courses.</p>
+        <p>The deployment of the interactive Streamlit dashboard ensures that these insights are not static but serve as an ongoing tool for operational monitoring. By implementing the strategic recommendations outlined in this report, EduPro is well-positioned to enhance personalized learning, optimize content creation, and ultimately drive sustained platform growth and learner success.</p>
+    </section>
+
+    <section id="sec-12">
+        <h2>References</h2>
+        <ul>
+            <li>Guo, P. J., Kim, J., & Rubin, R. (2014). How video production affects student engagement: An empirical study of MOOC videos. <em>Proceedings of the First ACM Conference on Learning @ Scale Conference</em>, 41-50.</li>
+            <li>Kizilcec, R. F., Piech, C., & Schneider, E. (2013). Deconstructing disengagement: Analyzing learner subpopulations in massive open online courses. <em>Proceedings of the Third International Conference on Learning Analytics and Knowledge</em>, 170-179.</li>
+            <li>Romero, C., & Ventura, S. (2010). Educational data mining: A review of the state of the art. <em>IEEE Transactions on Systems, Man, and Cybernetics, Part C (Applications and Reviews)</em>, 40(6), 601-618.</li>
+            <li>Siemens, G. (2013). Learning analytics: The emergence of a discipline. <em>American Behavioral Scientist</em>, 57(10), 1380-1400.</li>
+        </ul>
+    </section>
+
+    <div class="footer">
+        <p>GitHub Repository: <a href="https://github.com/navinx002-byte/Data-analytics-" target="_blank">https://github.com/navinx002-byte/Data-analytics-</a></p>
+    </div>
+
+</body>
+</html>
